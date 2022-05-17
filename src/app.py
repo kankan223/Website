@@ -8,7 +8,7 @@ def hello_world():
 
 
 @app.route("/template")
-def reender():
+def template():
     return render_template("index.html")
 
 if __name__ == "__main__":
