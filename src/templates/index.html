@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>bruh chat</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script> 
+  
 </head>
 <body>
   <div class="header">
+  
 
-    
     <div class="dropdown" data-dropdown>
       <button  id="icon-symbol" class="link" data-dropdown-button>≡</button>
       <div class="dropdown-menu">
@@ -24,12 +25,14 @@
         <div class="other-options">
           <a class="link" href="/login">Login</a><br><br>
           <a class="link" href="/logout">Logout</a><br><br>
-          <a class="link" href="/settings">Settings</a><br>
-          <a class="link" href="/profile">Profile</a><br><br><nr></nr>
+          <a class="link" href="/settings">Settings</a><br><br>
+          <a class="link" href="/profile">Profile</a><br><br>
+          <nr></nr>
         </div>
 
       </div>
     </div>
   </div>
 </body>
+<img src = "{{ url_for('static', filename='pic.jpg') }}">
 </html
