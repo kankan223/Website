@@ -1,4 +1,4 @@
-document.addEventListener("click", (e) => {
+document.addEventListener("mouseover", (e) => {
   const isDropdownButton = e.target.matches("[data-dropdown-button]");
   if (!isDropdownButton && e.target.closest("[data-dropdown]") != null) return;
 

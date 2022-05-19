@@ -21,6 +21,9 @@ body {
   gap: 1rem;
 }
 
+
+
+
 #icon-symbol {
   font-size: 30px;
 }
@@ -94,3 +97,4 @@ body {
 .other-options {
   display: inline-block;
 }
+
