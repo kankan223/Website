@@ -1,6 +1,7 @@
 body {
   margin: 0;
 }
+
 /*
 .header {
   background-color: #F3F3F3;
@@ -13,6 +14,7 @@ body {
   
 }
 */
+
 .header {
   background-color: #f3f3f3;
   display: flex;

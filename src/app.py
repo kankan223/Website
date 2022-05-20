@@ -1,19 +1,42 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from app import *
+
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+
+class website(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self) -> str:
+        return f"{self.sno} - {self.name}"
+
 
 @app.route("/")
 def home():
-    return render_template("new.html")
+    
+    #db.session.add(website)
+    #db.session.commit()
+    return render_template("index.html")
 
 @app.route("/index")
-def index():
-    return render_template("index.html")
+def new():
+    return render_template("new.html")
 
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return render_template("twiter.html")
 
 @app.route("/logout")
 def logout():
