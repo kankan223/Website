@@ -1,39 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bruh chat</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <script src="{{ url_for('static', filename='script.js') }}" defer></script> 
-
-</head>
-<body>
-  
-  <div class="header">
-    <div class="dropdown" data-dropdown>  
-      <button  id="icon-symbol" class="link" data-dropdown-button>≡</button>
-      <div class="dropdown-menu">
-        <div class="user-info">
-
-          <img class="user-icon user-info" src="{{ url_for('static', filename='silent-voice.png') }}">
-          <span class="user-info">  KeviTheDuck</span>
-        </div>
-        <br>
-        <div class="other-options">
-          <a class="link" href="/login">Login</a><br><br>
-          <a class="link" href="/logout">Logout</a><br><br>
-          <a class="link" href="/settings">Settings</a><br><br>
-          <a class="link" href="/profile">Profile</a><br><br>
-          <nr></nr>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+    
  
-</body>
-
-</html
+    
+{% endblock body %}

@@ -1,12 +1,22 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from app import *
+import json
+import os
 
+
+
+with open('/templates/config.json', 'r') as c:
+    params = json.load(c)["params"]
+
+local_server = params['local_serer']    
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+if(local_server):
+    app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -36,7 +46,7 @@ def new():
 
 @app.route("/login")
 def login():
-    return render_template("twiter.html")
+    return render_template("login.html")
 
 @app.route("/logout")
 def logout():
