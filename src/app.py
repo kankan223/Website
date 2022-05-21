@@ -1,26 +1,24 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-<<<<<<< HEAD
 import json
 import os
-=======
-
->>>>>>> 2ad56202fd467cf4a987424fae20da5981df1baf
 
 
 
-with open('/templates/config.json', 'r') as c:
-    params = json.load(c)["params"]
+#with open('./templates/config.json', 'r') as c:
+    #params = json.load(c)["params"]
 
-local_server = params['local_serer']    
+local_server = True#params['local_serer']    
 
 
 app = Flask(__name__)
-if(local_server):
-    app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
+#if(local_server):
+ #   app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
+#else:
+ #   app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
