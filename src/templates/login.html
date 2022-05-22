@@ -12,9 +12,10 @@
 <div class="container">
 	<div id="login-box">
 		<div class="logo">
-			<img src="http://placehold.it/100x100?text=DD" class="img img-responsive img-circle center-block"/>
+			<img src="{{ url_for('static', filename='silent-voice.png')}}" class="img img-responsive img-circle center-block"/>
 			<h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
 		</div><!-- /.logo -->
+		<div class="sign_up">Sign up <a href="/sign_up">here</a></div>
 		<div class="controls">
 			<input type="text" name="username" placeholder="Username" class="form-control" />
 			<input type="text" name="username" placeholder="Password" class="form-control" />

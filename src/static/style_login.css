@@ -17,7 +17,7 @@ body, html {
 	padding: 20px;
 	z-index: 9999;
 }
-#login-box .logo .logo-caption {
+#login-box .logo .logo-caption , .sign_up{
 	font-family: 'Poiret One', cursive;
 	color: white;
 	text-align: center;
@@ -70,4 +70,11 @@ body, html {
   	position: fixed;
   	top: 0px;
   	z-index:1;
+}
+
+.img {
+  width: 100px;
+}
+.sign_up {
+
 }
