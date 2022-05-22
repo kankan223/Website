@@ -1,10 +1,31 @@
 from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import Model, SQLAlchemy
+#import sqlalchemy as sa
+#from sqlalchemy.ext.declarative import declared_attr, has_inherited_table
 from datetime import datetime
 import json
 import os
 
 
+#class IdModel(Model):
+#    @declared_attr
+#   def id(cls):
+#       for base in cls.__mro__[1:-1]:
+#           if getattr(base, '__table__', None) is not None:
+#               type = sa.ForeignKey(base.id)
+#               break
+#       else:
+#           type = sa.Integer
+
+#       return sa.Column(type, primary_key=True)
+
+#db = SQLAlchemy(model_class=IdModel)
+
+#class User(db.Model):
+#   name = db.Column(db.String)
+
+#class Employee(User):
+#   title = db.Column(db.String)
 
 #with open('./templates/config.json', 'r') as c:
     #params = json.load(c)["params"]
@@ -33,26 +54,42 @@ class website(db.Model):
     def __repr__(self) -> str:
         return f"{self.sno} - {self.name}"
 
+    
+
+
 
 @app.route("/")
 def home():
-    
-    #db.session.add(website)
-    #db.session.commit()
     return render_template("index.html")
 
 
 
-@app.route("/login",  methods=['GET', 'POST'])
+@app.route("/login",  methods = ['GET', 'POST'])
 def login():
-    if request.method=='POST':
+    if request.method == 'POST':
         return render_template("index.html")
     else:
         return render_template("login.html")
 
-@app.route("/sign_up")
+@app.route("/sign_up", methods = ['GET', 'POST'])
 def sign_up():
-    return render_template("sign_up.html")
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        new = website(name=name, email=email, password=password)
+
+
+        try:
+            db.session.add(new)
+            db.session.commit
+            return redirect("/")
+        except:
+            return "There was a problem creating an account"
+            return redirect("/sign_up")
+    else:
+        return render_template("sign_up.html")
+
 
 @app.route("/logout")
 def logout():
@@ -60,9 +97,10 @@ def logout():
 
 @app.route("/login_val", methods=['POST', 'GET'])
 def login_val():
+    email=request.form.get('email')
     username=request.form.get('username')
     password=request.form.get('password')
-    return "The username is {} and the password  is {}.".format(username,password)
+    return redirect("/")
 
 
 @app.route("/profile")
