@@ -1,0 +1,10 @@
+{
+    "params":
+
+    {
+
+        "local_server":"True",
+        "local_uri":"sqlite:///database.db",
+        "prod_uri":"sqlite:///database.db"
+    }
+}

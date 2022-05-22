@@ -41,15 +41,12 @@ def home():
     #db.session.commit()
     return render_template("index.html")
 
-@app.route("/xxxs")
-def new():
-    return render_template("home.html")
 
 
 @app.route("/login",  methods=['GET', 'POST'])
 def login():
     if request.method=='POST':
-        return render_template("/")
+        return render_template("index.html")
     else:
         return render_template("login.html")
 
@@ -61,9 +58,11 @@ def sign_up():
 def logout():
     return render_template("logout.html")
 
-@app.route("/settings")
-def settings():
-    return render_template("settings.html")
+@app.route("/login_val", methods=['POST', 'GET'])
+def login_val():
+    username=request.form.get('username')
+    password=request.form.get('password')
+    return "The username is {} and the password  is {}.".format(username,password)
 
 
 @app.route("/profile")
