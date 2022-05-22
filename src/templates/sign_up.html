@@ -15,14 +15,17 @@
 			<img src="{{ url_for('static', filename='silent-voice.png')}}" class="img img-responsive img-circle center-block"/>
 			<h1 class="logo-caption"><span class="tweak">Sign</span>up</h1>
 		</div><!-- /.logo -->
-		<div class="sign_up">Login <a href="/sign_up">here</a></div>
+		<div class="sign_up">Login <a href="/login">here</a></div>
+
 		<div class="controls">
-            <form class="form" method="post" action="/index">
-			<input type="email" name="email" placeholder="email" class="form-control" />
-            <input type="text" name="username" placeholder="username" class="form-control" />
-            <input type="password" name="password1" placeholder="password" class="form-control" />
-			<input type="password" name="password2" placeholder="confirm password" class="form-control" />
-			<button type="submit" class="btn btn-default btn-block btn-custom">Login</button>
+		
+            <form class="form" action="/sign_up" METHOD="post">
+            	<input type="text" name="name" placeholder="username" class="form-control" />
+				<input type="email" name="email" placeholder="email" class="form-control" />
+            	<input type="password" name="password" placeholder="password" class="form-control" />
+				<input type="password" name="password2" placeholder="confirm password" class="form-control" />
+				<button type="submit" class="btn btn-default btn-block btn-custom">Login</button>
+			
             </form>
 		</div>
 	</div>

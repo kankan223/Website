@@ -1,36 +1,13 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, Blueprint
 from flask_sqlalchemy import Model, SQLAlchemy
-#import sqlalchemy as sa
-#from sqlalchemy.ext.declarative import declared_attr, has_inherited_table
 from datetime import datetime
+from werkzeug.security import check_password_hash
 import json
 import os
+from flask_login import login_user, login_required, logout_user, current_user
 
 
-#class IdModel(Model):
-#    @declared_attr
-#   def id(cls):
-#       for base in cls.__mro__[1:-1]:
-#           if getattr(base, '__table__', None) is not None:
-#               type = sa.ForeignKey(base.id)
-#               break
-#       else:
-#           type = sa.Integer
-
-#       return sa.Column(type, primary_key=True)
-
-#db = SQLAlchemy(model_class=IdModel)
-
-#class User(db.Model):
-#   name = db.Column(db.String)
-
-#class Employee(User):
-#   title = db.Column(db.String)
-
-#with open('./templates/config.json', 'r') as c:
-    #params = json.load(c)["params"]
-
-local_server = True#params['local_serer']    
+local_server = True  #params['local_serer']    
 
 
 app = Flask(__name__)
@@ -39,7 +16,7 @@ app = Flask(__name__)
 #else:
  #   app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -51,43 +28,57 @@ class website(db.Model):
     password = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self) -> str:
+    def __repr__(self):
+        #return '<Name %r>' % self.sno
         return f"{self.sno} - {self.name}"
 
-    
-
-
+auth =  Blueprint('auth', __name__)
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+@app.route("/login")
+def loggin():
+    return render_template("login.html")
 
 
-@app.route("/login",  methods = ['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return render_template("index.html")
-    else:
-        return render_template("login.html")
+#@auth.route('/login', methods=['GET', 'POST'])
+#def login():
+#    if request.method == 'POST':
+#        name = request.form.get('name')
+#        email = request.form.get('email')
+#        password = request.form.get('password')
 
-@app.route("/sign_up", methods = ['GET', 'POST'])
+#        website = website.query.filter_by(name=name).first()
+#        website = website.query.filter_by(email=email).first()
+#        if website:
+#            if check_password_hash(website.password, password):
+#                flash('Logged in seccuessfully!', category='success')
+#                login_user(website, remember=True)
+#                return redirect('/')
+#            else:
+#                flash('Incorrect password, try again', category='error')
+#        else:
+#            #flash('Email does not exist', category='error')
+
+@app.route("/sign_up", methods = ['POST', 'GET'])
 def sign_up():
-    if request.method == 'POST':
+    if request.method == "POST":
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
         new = website(name=name, email=email, password=password)
-
-
+        
         try:
             db.session.add(new)
-            db.session.commit
-            return redirect("/")
+            db.session.commit()
+            return redirect('/')
         except:
             return "There was a problem creating an account"
-            return redirect("/sign_up")
+            #return redirect("/sign_up")
     else:
+        #data = website.query.order_by(date)
         return render_template("sign_up.html")
 
 
@@ -95,12 +86,6 @@ def sign_up():
 def logout():
     return render_template("logout.html")
 
-@app.route("/login_val", methods=['POST', 'GET'])
-def login_val():
-    email=request.form.get('email')
-    username=request.form.get('username')
-    password=request.form.get('password')
-    return redirect("/")
 
 
 @app.route("/profile")
